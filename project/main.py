@@ -42,25 +42,24 @@ fps_controller = pygame.time.Clock()
 
 # Game Over
 def game_over(score):
-    my_font = pygame.font.SysFont('times new roman', 90)
-    game_over_surface = my_font.render('YOU DIED', True, red)
-    game_over_rect = game_over_surface.get_rect()
-    game_over_rect.midtop = (frame_size_x/2, frame_size_y/4)
+    my_font = pygame.font.SysFont('times new roman', 90) # set font
+    game_over_surface = my_font.render('YOU DIED', True, red) # renders text on screen
+    game_over_rect = game_over_surface.get_rect() # use to position text
+    game_over_rect.midtop = (frame_size_x/2, frame_size_y/4) # set text location
     game_window.fill(black)
-    game_window.blit(game_over_surface, game_over_rect)
+    game_window.blit(game_over_surface, game_over_rect) # draws it all on the window
     show_score(score, 0, red, 'times', 20)
-    pygame.display.flip()
 
 # Score
 def show_score(score, choice, color, font, size):
-    score_font = pygame.font.SysFont(font, size)
-    score_surface = score_font.render('Score : ' + str(score), True, color)
-    score_rect = score_surface.get_rect()
-    if choice == 1:
-        score_rect.midtop = (frame_size_x/10, 15)
-    else:
-        score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
-    game_window.blit(score_surface, score_rect)
+    score_font = pygame.font.SysFont(font, size) # set font
+    score_surface = score_font.render('Score : ' + str(score), True, color) # renders text on screen
+    score_rect = score_surface.get_rect() # use to position the text
+    if choice == 1: # 1 for in-game
+        score_rect.midtop = (frame_size_x/10, 15) # set text location top left
+    else: # 0 for game over
+        score_rect.midtop = (frame_size_x/2, frame_size_y/1.25) # set text location to bottom middle
+    game_window.blit(score_surface, score_rect) # draws it all on the window
     
 def main():
     snake_pos = [frame_size_x / 2, frame_size_y / 2] 
