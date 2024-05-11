@@ -1,6 +1,5 @@
 import pygame, sys, time, random
 
-
 # Difficulty settings
 # Easy      ->  10
 # Medium    ->  25
@@ -51,10 +50,6 @@ def game_over(score):
     game_window.blit(game_over_surface, game_over_rect)
     show_score(score, 0, red, 'times', 20)
     pygame.display.flip()
-    time.sleep(3)
-    pygame.quit()
-    sys.exit()
-
 
 # Score
 def show_score(score, choice, color, font, size):
@@ -66,11 +61,10 @@ def show_score(score, choice, color, font, size):
     else:
         score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
     game_window.blit(score_surface, score_rect)
-    # pygame.display.flip()
     
 def main():
-    snake_pos = [100, 50]
-    snake_body = [[100, 50], [100-10, 50], [100-(2*10), 50]]
+    snake_pos = [frame_size_x / 2, frame_size_y / 2] 
+    snake_body = [[100, 50], [100-10, 50], [100-(10*2), 50]]
 
     food_pos = [random.randrange(1, (frame_size_x//10)) * 10, random.randrange(1, (frame_size_y//10)) * 10] # The position of food on the screen
     food_spawn = True # Keeps track if there is food on screen
@@ -137,15 +131,15 @@ def main():
         for pos in snake_body:
             pygame.draw.rect(game_window, green, pygame.Rect(pos[0], pos[1], 10, 10))
 
-        # Snake food
+        # Spawn food
         pygame.draw.rect(game_window, red, pygame.Rect(food_pos[0], food_pos[1], 10, 10))
 
         # Game Over conditions
         # Getting out of bounds
         if snake_pos[0] < 0 or snake_pos[0] > frame_size_x-10:
-            game_over()
+            game_over(score)
         if snake_pos[1] < 0 or snake_pos[1] > frame_size_y-10:
-            game_over()
+            game_over(score)
             
         # Touching the snake body
         for block in snake_body[1:]:
