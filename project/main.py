@@ -6,7 +6,7 @@ import pygame, sys, time, random
 # Hard      ->  40
 # Harder    ->  60
 # Impossible->  120
-difficulty = 15
+difficulty = 100
 
 # Window size
 frame_size_x = 720
@@ -62,8 +62,8 @@ def show_score(score, choice, color, font, size):
     game_window.blit(score_surface, score_rect) # draws it all on the window
     
 def main():
-    snake_pos = [frame_size_x / 2, frame_size_y / 2] 
-    snake_body = [[100, 50], [100-10, 50], [100-(10*2), 50]]
+    snake_pos = [frame_size_x / 2, frame_size_y / 2] # snake head position
+    snake_body = [[100, 50], [100-10, 50], [100-(10*2), 50]] # snake segment positions
 
     food_pos = [random.randrange(1, (frame_size_x//10)) * 10, random.randrange(1, (frame_size_y//10)) * 10] # The position of food on the screen
     food_spawn = True # Keeps track if there is food on screen
@@ -151,9 +151,11 @@ def main():
 
         # Refresh game screen
         pygame.display.update()
-        # Refresh rate
+        
+        # Refresh rate (controls speed of snake)
         fps_controller.tick(difficulty)
     
+    # show score at end of game
     show_score(score, 1, red, 'consolas', 20)
     time.sleep(3)
     pygame.quit()
