@@ -6,7 +6,7 @@ import pygame, sys, time, random
 # Hard      ->  40
 # Harder    ->  60
 # Impossible->  120
-difficulty = 25
+difficulty = 15
 
 # Window size
 frame_size_x = 720
@@ -72,7 +72,8 @@ def main():
     change_to = direction
 
     score = 0
-    while True:
+    playing = True
+    while playing:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -137,19 +138,25 @@ def main():
         # Getting out of bounds
         if snake_pos[0] < 0 or snake_pos[0] > frame_size_x-10:
             game_over(score)
+            playing = False
         if snake_pos[1] < 0 or snake_pos[1] > frame_size_y-10:
             game_over(score)
+            playing = False
             
         # Touching the snake body
         for block in snake_body[1:]:
             if snake_pos[0] == block[0] and snake_pos[1] == block[1]:
                 game_over(score)
+                playing = False
 
-        show_score(score, 1, white, 'consolas', 20)
         # Refresh game screen
         pygame.display.update()
         # Refresh rate
         fps_controller.tick(difficulty)
+    
+    show_score(score, 1, red, 'consolas', 20)
+    time.sleep(3)
+    pygame.quit()
     
 if __name__ == "__main__":
     main()
